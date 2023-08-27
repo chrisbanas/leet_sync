@@ -15,30 +15,19 @@
  */
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        
         List<Integer> preOrder = new ArrayList<>();
-
-        if (root == null) {
-            return preOrder;
-        }
-
-        Deque<TreeNode> stack = new LinkedList<TreeNode>();
-        stack.offerFirst(root);
-
-        while (!stack.isEmpty()) {
-            TreeNode temp = stack.pollFirst();
-            preOrder.add(temp.val);
-
-            if (temp.right != null) {
-                stack.offerFirst(temp.right);
-            }
-            if (temp.left != null) {
-                stack.offerFirst(temp.left);
-            }
-
-        }
-
+        preorderTraversal(root, preOrder);
         return preOrder;
+    }
+
+    public void preorderTraversal(TreeNode root, List<Integer> preOrder) {
+        if (root == null) {
+            return;
+        }
+
+        preOrder.add(root.val);
+        preorderTraversal(root.left, preOrder);
+        preorderTraversal(root.right, preOrder);
 
     }
 }
