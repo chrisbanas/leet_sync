@@ -1,24 +1,25 @@
 class Solution {
+    
+    // Creating a hash map with 0 -> 0 and 1 -> 1 pairs
+    private Map<Integer, Integer> cache = new HashMap<>(Map.of(0, 0, 1, 1));
+
     public int fib(int n) {
-        if (n == 0) {
-            return 0;
+        // Since we preloaded the hashmap we don't need the base case from the regular recursion
+
+        // If it has that key we have seen that part of the tree and can return its value
+        // Otherwise put n in the cache with its value
+        if (cache.containsKey(n)) {
+            return cache.get(n);
+        } else {
+            cache.put(n, fib(n - 1) + fib(n - 2));
+            return cache.get(n);
         }
 
-        if (n == 1) {
-            return 1;
-        }
+        
 
-        // You have to add one here because of 0 indexing you will be one short
-        int[] fibSeq = new int[n + 1]; 
-        fibSeq[0] = 0;
-        fibSeq[1] = 1;
 
-        for (int i = 2; i <= n; i++) {
-            int nextNum = fibSeq[i - 1] + fibSeq[i - 2];
-            fibSeq[i] = nextNum;
-        }
-
-        return fibSeq[n];
 
     }
+
+    
 }
