@@ -8,15 +8,17 @@ class Solution {
             return 1;
         }
 
-        List<Integer> fibSeq = new ArrayList<>(Arrays.asList(0, 1));
+        // You have to add one here because of 0 indexing you will be one short
+        int[] fibSeq = new int[n + 1]; 
+        fibSeq[0] = 0;
+        fibSeq[1] = 1;
 
-        int i = 1;
-        while (i < n) {
-            fibSeq.add(fibSeq.get(i) + fibSeq.get(i - 1));
-            i++;
+        for (int i = 2; i <= n; i++) {
+            int nextNum = fibSeq[i - 1] + fibSeq[i - 2];
+            fibSeq[i] = nextNum;
         }
 
-        return fibSeq.get(n);
+        return fibSeq[n];
 
     }
 }
