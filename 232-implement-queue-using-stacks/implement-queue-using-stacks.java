@@ -1,25 +1,37 @@
 class MyQueue {
 
-    private Deque<Integer> stack;
+    private Deque<Integer> in;
+    private Deque<Integer> out;
 
     public MyQueue() {
-        stack = new LinkedList<Integer>();
+        in = new LinkedList<Integer>();
+        out = new LinkedList<Integer>();
+    }
+
+    public void slinky() {
+        if (out.isEmpty()) {
+            while(!in.isEmpty()) {
+                out.offerFirst(in.pollFirst());
+            }
+        }
     }
     
     public void push(int x) {
-        stack.offer(x);
+        in.offerFirst(x);
     }
     
     public int pop() {
-        return stack.poll();
+        slinky();
+        return out.pollFirst();
     }
     
     public int peek() {
-        return stack.peek();
+        slinky();
+        return out.peekFirst();
     }
     
     public boolean empty() {
-        return stack.size() == 0;
+        return in.size() == 0 && out.size() == 0;
     }
 }
 
