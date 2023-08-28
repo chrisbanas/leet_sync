@@ -19,13 +19,23 @@ class Solution {
             return root;
         }
 
-        invertTree(root.left);
-        invertTree(root.right);
+        Deque<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.offer(root);
 
-        // Swap just like in bubble sort
-        TreeNode temp = root.left;
-        root.left = root.right;
-        root.right = temp;
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.poll();
+
+            TreeNode temp = current.left;
+            current.left = current.right;
+            current.right = temp;
+
+            if (current.left != null) {
+                queue.offer(current.left);
+            }
+            if (current.right != null) {
+                queue.offer(current.right);
+            }
+        }
 
         return root;
         
