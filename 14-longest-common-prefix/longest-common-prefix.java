@@ -9,26 +9,26 @@ class Solution {
         Arrays.sort(strs);
 
         //Shortest String
-        String shortest = strs[0];
+        String first = strs[0];
         
         //Longest String
-        String longest = strs[strs.length - 1];
+        String last = strs[strs.length - 1];
 
 
+        int i = 0;
 
-        StringBuilder prefix = new StringBuilder();
-
-        for (int i = 0; i < shortest.length(); i++) {
-            if (shortest.charAt(i) == longest.charAt(i)) {
-                prefix.append(shortest.charAt(i));
-            } else {
-                break;
-            }
+        while (i < first.length() && first.charAt(i) == last.charAt(i)) {
+           i++;
         }
 
-        String commonPrefix = prefix.toString();
+        if (i == 0) {
+            return "";
+        } else {
+            return first.substring(0, i);
+        }
 
-        return commonPrefix;
+        
+        
 
     }
 }
