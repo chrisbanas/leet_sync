@@ -11,8 +11,6 @@ class Solution {
         int tempR = 0;
         int tempL = 0;
 
-        char previous = s.charAt(0);
-
         for (int i = 0; i < s.length(); i++) {
             char current = s.charAt(i);
 
