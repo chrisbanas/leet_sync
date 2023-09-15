@@ -1,35 +1,27 @@
-// As the substring is moving we keep track of the r & ls and at the end if they are the same number
-// increase the count
-
-// If the flag is R then the next leeter needs to be an R or an L
-
 class Solution {
     public int balancedStringSplit(String s) {
+        int output = 0;
+        int countR = 0;
+        int countL = 0;
 
-        int count = 0;
+        char[] letters = s.toCharArray();
 
-        int tempR = 0;
-        int tempL = 0;
-
-        for (int i = 0; i < s.length(); i++) {
-            char current = s.charAt(i);
-
-            if (current == 'R') {
-                tempR ++;
-            } else {
-                tempL++;
-            }
-
-            if (tempR == tempL) {
-                count++;
-                tempR = 0;
-                tempL = 0;
-            }
-
+        for (char letter : letters) {
+        if (letter == 'R') {
+            countR++;
         }
 
+        if (letter == 'L') {
+            countL++;
+        }
 
-        return count;
-        
+        if (countR == countL) {
+            output++;
+            countR = 0;
+            countL = 0;
+        }
+        }
+
+        return output;
     }
 }
