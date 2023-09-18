@@ -1,1 +1,1 @@
-<h2>cells-in-a-range-on-an-excel-sheet Notes</h2><hr>This solution while valid has too many variables to track things and this can be simplified by using the unicode value of the char to increment up through the letters.
+<h2>cells-in-a-range-on-an-excel-sheet Notes</h2><hr>This solution while valid has too many variables to track things and this can be simplified by using the unicode value of the char to increment up through the letters and numbers.
