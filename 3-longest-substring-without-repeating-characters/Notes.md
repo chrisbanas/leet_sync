@@ -1,0 +1,1 @@
+<h2>longest-substring-without-repeating-characters Notes</h2><hr>This is o(n2) and my problem was that I should have just set j = i
