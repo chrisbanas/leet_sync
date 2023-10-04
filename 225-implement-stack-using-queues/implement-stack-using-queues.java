@@ -1,27 +1,30 @@
-class MyStack {
+  class MyStack {
 
-    private Deque<Integer> queue;
+    private ArrayList<Integer> stack;
+    private int size;
 
     public MyStack() {
-        queue = new LinkedList<Integer>();
+       stack = new ArrayList<>();
+       size = -1;
     }
-    
+
     public void push(int x) {
-        queue.offerFirst(x);
+      stack.add(x);
+      size++;
     }
-    
+
     public int pop() {
-        return queue.pollFirst();
+      return stack.remove(size--);
     }
-    
+
     public int top() {
-        return queue.peekFirst();
+      return stack.get(size);
     }
-    
+
     public boolean empty() {
-       return queue.size() == 0;
+      return size == -1;
     }
-}
+  }
 
 /**
  * Your MyStack object will be instantiated and called as such:
