@@ -1,39 +1,40 @@
-class MyQueue {
+  class MyQueue {
 
     private Deque<Integer> in;
     private Deque<Integer> out;
 
     public MyQueue() {
-        in = new LinkedList<Integer>();
-        out = new LinkedList<Integer>();
+      this.in = new LinkedList<>();
+      this.out = new LinkedList<>();
     }
 
-    public void slinky() {
-        if (out.isEmpty()) {
-            while(!in.isEmpty()) {
-                out.offerFirst(in.pollFirst());
-            }
-        }
-    }
-    
     public void push(int x) {
-        in.offerFirst(x);
+      in.offerFirst(x);
     }
-    
+
     public int pop() {
-        slinky();
-        return out.pollFirst();
+      this.slinky();
+      return out.pollFirst();
     }
-    
+
     public int peek() {
-        slinky();
-        return out.peekFirst();
+      this.slinky();
+      return out.peekFirst();
     }
-    
+
     public boolean empty() {
-        return in.size() == 0 && out.size() == 0;
+      return in.size() == 0 && out.size() == 0;
     }
-}
+
+    private void slinky() {
+      if (out.isEmpty()) {
+        while(!in.isEmpty()) {
+          out.offerFirst(in.pollFirst());
+        }
+      }
+    }
+
+  }
 
 /**
  * Your MyQueue object will be instantiated and called as such:
