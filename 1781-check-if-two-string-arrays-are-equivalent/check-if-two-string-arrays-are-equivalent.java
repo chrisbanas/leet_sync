@@ -1,20 +1,12 @@
 class Solution {
   public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
-    StringBuilder combined1 = new StringBuilder();
-    StringBuilder combined2 = new StringBuilder();
+    String combined1 = String.join("", word1);
+    String combined2 = String.join("", word2);
 
-    for (String word: word1) {
-      combined1.append(word);
-    }
-
-    for (String word: word2) {
-      combined2.append(word);
-    }
-
-    return combined1.toString().equals(combined2.toString());
+    return combined1.equals(combined2);
 
   }
 }
 
   // Time O(word1.length + word2.length) -> O(n + m)
-  // Space O(word1.length + word2.length) -> O(n + m)
+  // Space O(1)
