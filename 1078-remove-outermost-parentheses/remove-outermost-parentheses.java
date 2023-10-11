@@ -1,26 +1,29 @@
+/*
+loop over the string tracking the number of '(' once we hit a ')' then we start to deduct from the count of '(' untill it reaches zero and we know that is the outer most.
+
+*/ 
+
 class Solution {
-  public String removeOuterParentheses(String s) {
-    int count = 0;
-    StringBuilder output = new StringBuilder();
+    public String removeOuterParentheses(String s) {
+        StringBuilder output = new StringBuilder();
 
-    for (int i = 0; i < s.length(); i++) {
-      char current = s.charAt(i);
-      if (current == '(') {
-        if (count != 0) {
-          output.append(current);
+        int count = 0;
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' && count != 0) {
+                output.append(c);
+                count++;
+            } else if (c == ')' && count > 1){
+                output.append(c);
+                count--;
+            } else if (c == '(' && count == 0) {
+                count++;
+            } else if (c ==')' && count == 1) {
+                count--;
+            }
         }
-        count++;
-      } else {
-        if (count != 1) {
-          output.append(current);
-        }
-        count--;
-      }
+
+        return output.toString();
+
     }
-
-    return output.toString();
-  }
 }
-
-// Time O(s.length()) -> O(n)
-// Space O(s.length()) -> O(n)
