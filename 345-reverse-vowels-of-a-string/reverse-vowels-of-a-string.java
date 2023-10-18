@@ -1,31 +1,25 @@
 class Solution {
     public String reverseVowels(String s) {
-        Map<Integer, Character> vowels = new HashMap<>();
+        int i = 0;
+        int j = s.length() - 1;
 
-        int vowelCount = 1;
+        char[] letters = s.toCharArray();
 
-        for (int i = 0; i < s.length(); i++) {
-            if (isVowel(s.charAt(i))) {
-                vowels.put(vowelCount, s.charAt(i));
-                vowelCount++;
-            }
-        }
-        // this is to properly adjust the count back because on the last one we add even though there is not a next.
-        vowelCount--;
-
-        StringBuilder output = new StringBuilder();
-
-        for (char c : s.toCharArray()) {
-            if (isVowel(c)) {
-                output.append(vowels.get(vowelCount));
-                vowelCount--;
-            } else {
-                output.append(c);
+        while (i < j) {
+            if (isVowel(letters[i]) && isVowel(letters[j])) {
+                char temp = letters[i];
+                letters[i] = letters[j];
+                letters[j] = temp;
+                i++;
+                j--;
+            } else if (!isVowel(letters[i])) {
+                i++;
+            } else if (!isVowel(letters[j])) {
+                j--;
             }
         }
 
-        return output.toString();
-
+        return new String(letters);
     }
 
     public boolean isVowel(char c) {
