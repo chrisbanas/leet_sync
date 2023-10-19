@@ -13,13 +13,11 @@ class MyHashSet {
   }
 
   public void remove(int key) {
-    if (contains(key)) {
-      for (int i = 0; i < this.set.size(); i++) {
+    for (int i = 0; i < this.set.size(); i++) {
         if (this.set.get(i) == key) {
-          this.set.remove(i);
-          break;
+            this.set.remove(i);
+            break;
         }
-      }
     }
   }
 
