@@ -1,24 +1,25 @@
-import java.util.HashMap;
+// To solve this in O(n) time and O(1) space, you need to use the Boyer-Moore Majority Voting Algorithm
+// This algorithm will only work if the data is guaranteed to have a majority element that is greater than half the length of the input array.
 
 class Solution {
-    public int majorityElement(int[] nums) {
-        HashMap<Integer, Integer> bank = new HashMap<>();
-        
-        int count = nums.length / 2;
+  public int majorityElement(int[] nums) {
+    int majority = 0;
+    int count = 0;
 
-        for (int num : nums) {
-            if (bank.get(num) == null) {
-                bank.put(num, 1);
-            } else {
-                bank.put(num, bank.get(num) + 1);
-            }
-            
-            if (bank.get(num) > count) {
-                return num;
-            }
-
-        }
-
-        return -1;
+    for (int num : nums) {
+      if (count == 0) {
+        majority = num;
+        count++;
+      } else if (num == majority) {
+        count++;
+      } else {
+        count--;
+      }
     }
+
+    return majority;
+  }
 }
+
+// Time O(nums.length) -> O(n)
+// Space O(1)
