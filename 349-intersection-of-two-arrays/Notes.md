@@ -1,0 +1,1 @@
+<h2>intersection-of-two-arrays Notes</h2><hr>This solution is a little more improved than the last one I did. We use two sets instead and check one against the other and we know the second set is the intersection. This way we don't have to make an ArrayList to store values.
