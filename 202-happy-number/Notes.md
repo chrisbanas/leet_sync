@@ -1,0 +1,1 @@
+<h2>happy-number Notes</h2><hr>My original solution was stuck on trying to detect a cycle as those tests would cause it to time out. I didn't realize that this problem could be implemented like the linked list cycle one. This is a refined implementation.
