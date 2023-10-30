@@ -1,0 +1,1 @@
+<h2>maximum-subarray Notes</h2><hr>This follows kadane's algorithm
