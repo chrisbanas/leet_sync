@@ -1,0 +1,1 @@
+<h2>summary-ranges Notes</h2><hr>The silly edge case caught the first one. This solution is not the most optimal but works.
