@@ -10,26 +10,13 @@
  */
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
+        // Base Case
         if (head == null) {
-            return head;
+            return null;
         }
 
-        ListNode sentinel = new ListNode();
-        sentinel.next = head;
-
-        ListNode previous = sentinel;
-        ListNode current = head;
-
-        while (current != null) {
-            if (current.val == val) {
-                previous.next = current.next;
-            } else {
-                previous = current;
-            }
-            current = current.next;
-        }
-
-        return sentinel.next;
-        
+        // Recursive case
+        head.next = removeElements(head.next, val);
+        return head.val == val ? head.next : head;
     }
 }
