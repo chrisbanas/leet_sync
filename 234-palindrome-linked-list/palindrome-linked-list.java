@@ -10,62 +10,26 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        if (head == null || head.next == null) {
+        return isPalindromeRecursive(head, new ListNode[]{head});
+    }
+    
+    public boolean isPalindromeRecursive(ListNode end, ListNode[] start) {
+        // Base case
+        if (end == null) {
             return true;
         }
 
-        ListNode secondHalf = middle(head);
-
-        ListNode reversed = reverse(secondHalf);
-        ListNode firstHalf = head;
-
-        while (reversed != null) {
-            if (reversed.val != firstHalf.val) {
-                return false;
-            }
-            reversed = reversed.next;
-            firstHalf = firstHalf.next;
+        // Second check for efficiency. If the remaining list is not a palindrome, no need to keep going.
+        if (!isPalindromeRecursive(end.next, start)) {
+            return false;
         }
 
-        return true;
+        // Check if current nodes are equal.
+        boolean isEqual = (start[0].val == end.val);
 
-    }
+        // Move the start pointer forward.
+        start[0] = start[0].next;
 
-    public ListNode reverse(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-
-        ListNode current = head;
-        ListNode previous = null;
-
-        while (current != null) {
-            ListNode temp = current.next;
-            current.next = previous;
-            previous = current;
-            current = temp;
-        }
-
-        return previous;
-
-    }
-
-    public ListNode middle(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-
-        ListNode slow = head;
-        ListNode fast = head;
-
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-
-        return slow;
+        return isEqual;
     }
 }
-
-// Time O(head.size()) -> O(n)
-// Space O(1)
