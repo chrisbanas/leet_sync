@@ -10,26 +10,38 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return addTwoNumbersRecursive(l1, l2, 0);
-    }
-
-    private ListNode addTwoNumbersRecursive(ListNode l1, ListNode l2, int carry) {
-        if (l1 == null && l2 == null && carry == 0) {
+        if (l1 == null && l2 == null) {
             return null;
+        } else if (l1 != null && l2 == null) {
+            return l1;
+        } else if (l1 == null && l2 != null) {
+            return l2;
         }
 
-        int val1 = (l1 != null) ? l1.val : 0;
-        int val2 = (l2 != null) ? l2.val : 0;
-        int sum = val1 + val2 + carry;
+        ListNode cur1 = l1;
+        ListNode cur2 = l2;
 
-        ListNode currentNode = new ListNode(sum % 10); // Create a new node with the digit value of sum
-        currentNode.next = addTwoNumbersRecursive(
-                l1 != null ? l1.next : null,
-                l2 != null ? l2.next : null,
-                sum / 10); // Carry is sum divided by 10
+        ListNode output = new ListNode(0);
+        ListNode prev = output;
+        
+        int carry = 0;
 
-        return currentNode;
+        while (cur1 != null || cur2 != null) {
+            int temp = (cur1 != null ? cur1.val : 0) + (cur2 != null ? cur2.val : 0) + carry;
+            carry = temp > 9 ? 1 : 0;
+            prev.next = new ListNode(temp % 10);
+            cur1 = cur1 != null ? cur1.next : null;
+            cur2 = cur2 != null ? cur2.next : null;
+            prev = prev.next;
+        }
+
+        if (carry > 0) {
+            prev.next = new ListNode(carry);
+        }
+
+        return output.next;
     }
 }
 
-// Time & Space O(n)
+// Time O(l1.size() + l2.size()) -> O(m + n)
+// Space O(length of the longer list) -> O(n)
