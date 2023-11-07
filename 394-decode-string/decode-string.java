@@ -1,27 +1,32 @@
 class Solution {
-    public int i = 0;
     public String decodeString(String s) {
-        StringBuilder output = new StringBuilder();
-
-        while(i < s.length() && s.charAt(i) != ']') {
-            if (!Character.isDigit(s.charAt(i))) {
-                output.append(s.charAt(i++));
+        Stack<StringBuilder> strings = new Stack<>();
+        Stack<Integer> counts = new Stack<>();
+        StringBuilder current = new StringBuilder();
+        int k = 0;
+        
+        for (char ch : s.toCharArray()) {
+            if (Character.isDigit(ch)) {
+                k = k * 10 + ch - '0';
+            } else if (ch == '[') {
+                counts.push(k);
+                strings.push(current);
+                current = new StringBuilder();
+                k = 0;
+            } else if (ch == ']') {
+                StringBuilder decodedString = strings.pop();
+                for (int currentK = counts.pop(); currentK > 0; currentK--) {
+                    decodedString.append(current);
+                }
+                current = decodedString;
             } else {
-                int k = 0;
-                while (i < s.length() && Character.isDigit(s.charAt(i))) {
-                    k = k * 10 + s.charAt(i++) - '0';
-                }
-                i++;
-                String decodedString = decodeString(s);
-                while (k-- > 0) {
-                    output.append(decodedString);
-                }
+                current.append(ch);
             }
         }
-        i++;
-        return output.toString();
+        
+        return current.toString();
     }
 }
 
-// Time O(maxK * n)
-// Space O(n)
+// Time O(max(n, m))
+// Space O(n + m)
