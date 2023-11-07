@@ -10,26 +10,41 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        return isPalindromeRecursive(head, new ListNode[]{head});
-    }
-    
-    public boolean isPalindromeRecursive(ListNode end, ListNode[] start) {
-        // Base case
-        if (end == null) {
+        if (head == null || head.next == null) {
             return true;
         }
 
-        // Second check for efficiency. If the remaining list is not a palindrome, no need to keep going.
-        if (!isPalindromeRecursive(end.next, start)) {
-            return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode pre = null;
+        ListNode temp;
+
+        // This finds the middle node and reverses the first half at the same time
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            temp = slow.next; // Store the next node
+            slow.next = pre; // Reverse the link
+            pre = slow; // Move pre to the current slow
+            slow = temp; // Move slow to the next node
         }
 
-        // Check if current nodes are equal.
-        boolean isEqual = (start[0].val == end.val);
+        // If there are an odd number of elements, skip the middle element
+        if (fast != null) {
+            slow = slow.next;
+        }
 
-        // Move the start pointer forward.
-        start[0] = start[0].next;
+        // Compare the reversed first half with the second half
+        while (slow != null) {
+            if (pre.val != slow.val) {
+                return false;
+            }
+            pre = pre.next;
+            slow = slow.next;
+        }
 
-        return isEqual;
+        return true;
     }
 }
+
+// Time O(n)
+// Space O(1)
