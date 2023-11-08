@@ -1,0 +1,1 @@
+<h2>find-median-from-data-stream Notes</h2><hr>My original add function did not factor in streams of negative numbers
