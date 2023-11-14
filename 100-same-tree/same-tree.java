@@ -13,6 +13,21 @@
  *     }
  * }
  */
+
+/*
+
+Use two stacks one for each tree
+
+Base case check
+if both tree equal null then they are the same
+if p == null || q == null then its false
+
+Each iteration of the loop we are going to check if the left and right childs match and add them to the stack. Otherwise return false
+
+*/
+
+
+
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null && q == null) {
@@ -23,35 +38,10 @@ class Solution {
             return false;
         }
 
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(p);
-        queue.add(q);
-
-        while (!queue.isEmpty()) {
-            TreeNode node1 = queue.poll();
-            TreeNode node2 = queue.poll();
-
-            if (node1 == null && node2 == null) {
-                continue;
-            }
-
-            if (node1 == null || node2 == null) {
-                return false;
-            }
-
-            if (node1.val != node2.val) {
-                return false;
-            }
-
-            queue.add(node1.left);
-            queue.add(node2.left);
-            queue.add(node1.right);
-            queue.add(node2.right);
+        if (p.val != q.val) {
+            return false;
         }
 
-        return true;
+        return isSameTree(p.right, q.right) && isSameTree(p.left, q.left);
     }
 }
-
-// Time O(n)
-// Space O(m + n)
