@@ -13,16 +13,35 @@
  *     }
  * }
  */
+import java.util.Stack;
+import java.util.Map.Entry;
+import java.util.AbstractMap.SimpleEntry;
+
 class Solution {
     public int maxDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
 
-        int leftDepth = maxDepth(root.left);
-        int rightDepth = maxDepth(root.right);
+        Stack<Entry<TreeNode, Integer>> stack = new Stack<>();
+        stack.push(new SimpleEntry<>(root, 1));
+        int maxDepth = 0;
 
-        return Math.max(leftDepth, rightDepth) + 1;
-        
+        while (!stack.isEmpty()) {
+            Entry<TreeNode, Integer> entry = stack.pop();
+            TreeNode node = entry.getKey();
+            int currentDepth = entry.getValue();
+
+            if (node != null) {
+                maxDepth = Math.max(maxDepth, currentDepth);
+                stack.push(new SimpleEntry<>(node.left, currentDepth + 1));
+                stack.push(new SimpleEntry<>(node.right, currentDepth + 1));
+            }
+        }
+
+        return maxDepth;
     }
 }
+
+// Time O(n)
+// Space O(n)
