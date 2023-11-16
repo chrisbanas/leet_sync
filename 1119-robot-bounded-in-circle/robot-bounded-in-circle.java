@@ -7,45 +7,26 @@ east is positive, west is negative
 
 */
 
+// THIS IS AN IMPROVED SOLUTION AFTER LOOKING AT THE EDITORIAL
+
 class Solution {
     public boolean isRobotBounded(String instructions) {
-        
-        String[] direction = new String[]{"north", "east", "south", "west"};
+        int[][] direction = new int[][]{{0, 1}, {1, 0}, {0 , -1}, {-1, 0}};
         int currentDirection = 0;
-        int[] position = new int[]{0,0};
-
+        int[] position = new int[]{0, 0};
 
         for (char instruction : instructions.toCharArray()) {
-            if (instruction == 'G' && direction[currentDirection].equals("north")) {
-                position[1]++;
-            }
-
-            if (instruction == 'G' && direction[currentDirection].equals("east")) {
-                position[0]++;
-            }
-
-            if (instruction == 'G' && direction[currentDirection].equals("south")) {
-                position[1]--;
-            }
-
-            if (instruction == 'G' && direction[currentDirection].equals("west")) {
-                position[0]--;
-            }
-
             if (instruction == 'L') {
-                if (currentDirection == 0) {
-                    currentDirection = direction.length - 1;
-                } else {
-                    currentDirection--;
-                }
+                currentDirection = (currentDirection + 3) % 4;
             }
 
             if (instruction == 'R') {
-                if (currentDirection == 3) {
-                    currentDirection = 0;
-                } else {
-                    currentDirection++;
-                }
+                currentDirection = (currentDirection + 1) % 4;
+            }
+
+            if (instruction == 'G') {
+                position[0] += direction[currentDirection][0];
+                position[1] += direction[currentDirection][1];
             }
         }
 
