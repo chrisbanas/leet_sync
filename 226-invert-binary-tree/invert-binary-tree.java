@@ -25,19 +25,20 @@ class Solution {
         while (!queue.isEmpty()) {
             TreeNode current = queue.poll();
 
-            TreeNode temp = current.left;
-            current.left = current.right;
-            current.right = temp;
-
             if (current.left != null) {
                 queue.offer(current.left);
             }
             if (current.right != null) {
                 queue.offer(current.right);
             }
+
+            TreeNode temp = current.left;
+            current.left = current.right;
+            current.right = temp;
+
+
         }
 
         return root;
-        
     }
 }
