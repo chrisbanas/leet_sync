@@ -23,23 +23,7 @@ class Solution {
             return 0;
         }
 
-        Stack<Entry<TreeNode, Integer>> stack = new Stack<>();
-        stack.push(new SimpleEntry<>(root, 1));
-        int maxDepth = 0;
-
-        while (!stack.isEmpty()) {
-            Entry<TreeNode, Integer> entry = stack.pop();
-            TreeNode node = entry.getKey();
-            int currentDepth = entry.getValue();
-
-            if (node != null) {
-                maxDepth = Math.max(maxDepth, currentDepth);
-                stack.push(new SimpleEntry<>(node.left, currentDepth + 1));
-                stack.push(new SimpleEntry<>(node.right, currentDepth + 1));
-            }
-        }
-
-        return maxDepth;
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 }
 
