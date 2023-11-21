@@ -1,39 +1,47 @@
 /*
-So immeditlly we know the length is the minimum answer
 
-This may be inefficent but we need each substring and then reverse it and then check if the equal
+Optimized using Manacher's algorithm
 
 */
 
 
 class Solution {
     public int countSubstrings(String s) {
-        int output = 0;
+        if (s == null || s.length() == 0) return 0;
 
-        for (int i = 0; i < s.length(); i++) {
-            output += count(s, i, i);
-            output += count(s, i, i + 1);
-        }
+            // Transform the string to add boundaries (#) to handle even-length cases
+            String transformed = "#" + s.chars().mapToObj(c -> (char) c + "#").collect(Collectors.joining());
 
-        return output;
-    }
+            int[] p = new int[transformed.length()];
+            int center = 0, right = 0, count = 0;
 
-    public int count(String s, int low, int high) {
-        int output = 0;
+            for (int i = 1; i < transformed.length() - 1; i++) {
+            int mirror = 2 * center - i; // Find the mirror of i
 
-        while (low >= 0 && high < s.length()) {
-            if (s.charAt(low) != s.charAt(high)) {
-                break;
+            if (i < right) {
+                p[i] = Math.min(right - i, p[mirror]);
             }
-            low--;
-            high++;
-            output++;
-        }
 
-        return output;
+            // Expanding around the center
+            while (i + 1 + p[i] < transformed.length() &&
+                    i - 1 - p[i] >= 0 &&
+                    transformed.charAt(i + 1 + p[i]) == transformed.charAt(i - 1 - p[i])) {
+                p[i]++;
+            }
 
+            // Update the center and right boundary
+            if (i + p[i] > right) {
+                center = i;
+                right = i + p[i];
+            }
+
+            // Add to count (considering half length)
+            count += (p[i] + 1) / 2;
+            }
+
+            return count;
     }
 }
 
-// Time O(n^2)
+// Time O(n)
 // Space O(1)
