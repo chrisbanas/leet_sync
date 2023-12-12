@@ -1,19 +1,40 @@
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        if (k > nums.length || k < 0) {
-            return 0;
-        }
-
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+        List<Integer> list = new ArrayList<>();
 
         for (int num : nums) {
-            maxHeap.add(num);
+            list.add(num);
         }
 
-        for (int i = 1; i < k; i++) {
-            maxHeap.poll();
+        return quickSelect(list, k);
+    }
+
+    public int quickSelect(List<Integer> nums, int k) {
+        int pivotIndex = new Random().nextInt(nums.size());
+        int pivot = nums.get(pivotIndex);
+
+        List<Integer> left = new ArrayList<>();
+        List<Integer> mid = new ArrayList<>();
+        List<Integer> right = new ArrayList<>();
+
+        for (int num : nums) {
+            if (num > pivot) {
+                left.add(num);
+            } else if (num < pivot) {
+                right.add(num);
+            } else {
+                mid.add(num);
+            }
         }
 
-        return maxHeap.peek();
+        if (k <= left.size()) {
+            return quickSelect(left, k);
+        }
+
+        if (left.size() + mid.size() < k) {
+            return quickSelect(right, k - left.size() - mid.size());
+        }
+
+        return pivot;
     }
 }
